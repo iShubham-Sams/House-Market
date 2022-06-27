@@ -5,8 +5,9 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { getAuth,createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
 import { async } from "@firebase/util";
+import { doc,setDoc,serverTimestamp } from "firebase/firestore";
 const Signup = () => {
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -29,6 +30,10 @@ const Signup = () => {
       const userCredential= await createUserWithEmailAndPassword(auth,email,password)
       const user= userCredential.user
       updateProfile(auth.currentUser,{displayName:name})
+      const formDataCopy ={...formData}
+      delete formDataCopy.password
+      formDataCopy.timestamp =serverTimestamp()
+      await setDoc(doc(db,'users',user.uid), formDataCopy)
       navigate('/')
       alert('signup success')
     } catch (error) {
