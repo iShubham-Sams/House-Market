@@ -70,10 +70,10 @@ const Signup = () => {
           <button type="submit" className="btn btn-primary">
             Sign up
           </button>
-          <div>
+          <div className="mt-2">
             <h6>Login with Google</h6>
             <span>Already User</span>
-            <Link to="/signin">Login </Link>
+            <Link to="/signin" className='m-4'>Login </Link>
           </div>
         </form>
       </div>
