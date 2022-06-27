@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
-
+import { getAuth,createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
+import { db } from "../firebase.config";
+import { async } from "@firebase/util";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [formData, setFormData] = useState({
@@ -19,10 +21,24 @@ const Signup = () => {
       [e.target.id]:e.target.value
     }))
   };
+
+  const onSubmitHndler=async(e)=>{
+    e.preventDefault()
+    try {
+      const auth= getAuth();
+      const userCredential= await createUserWithEmailAndPassword(auth,email,password)
+      const user= userCredential.user
+      updateProfile(auth.currentUser,{displayName:name})
+      navigate('/')
+      alert('signup success')
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Layout>
       <div className="d-flex align-item-center justify-content-center w-100 mt-4">
-        <form className="bg-light p-4">
+        <form className="bg-light p-4" onSubmit={onSubmitHndler}>
           <h4 className="bg-dark p-2 mt-2 text-light text-center">Sign Up</h4>
 
           <div className="mb-3">
