@@ -4,7 +4,7 @@ import Layout from "../components/layout/Layout";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { getAuth,createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
-import { async } from "@firebase/util";
+import { toast } from 'react-toastify';
 import { doc,setDoc,serverTimestamp } from "firebase/firestore";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,9 +35,10 @@ const Signup = () => {
       formDataCopy.timestamp =serverTimestamp()
       await setDoc(doc(db,'users',user.uid), formDataCopy)
       navigate('/')
-      alert('signup success')
+      toast.success('Sign Up Success')
     } catch (error) {
       console.log(error);
+      toast.error('Something Went Wrong')
     }
   }
   return (
