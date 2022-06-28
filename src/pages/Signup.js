@@ -6,6 +6,8 @@ import { getAuth,createUserWithEmailAndPassword,updateProfile } from "firebase/a
 import { db } from "../firebase.config";
 import { toast } from 'react-toastify';
 import { doc,setDoc,serverTimestamp } from "firebase/firestore";
+import OAuth from '../components/layout/OAuth';
+
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -92,6 +94,7 @@ const Signup = () => {
           <button type="submit" className="btn btn-primary">
             Sign up
           </button>
+          <OAuth/>
           <div className="mt-2">
             <h6>Login with Google</h6>
             <span>Already User</span>

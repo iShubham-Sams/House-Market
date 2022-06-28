@@ -88,7 +88,7 @@ const onChange=(e)=>{
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 value={name}
                 onChange={onChange}
                 id="name"

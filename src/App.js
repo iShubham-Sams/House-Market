@@ -6,13 +6,14 @@ import Signup from './pages/Signup'
 import Proflie from './pages/Proflie';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 import {
   BrowserRouter as Router,
   Routes,
   Route 
 } from 'react-router-dom';
+import Privaterout from './components/layout/Privaterout';
+import ForgotPassword from './pages/ForgotPassword';
+import Category from './pages/Category';
 
 function App() {
   return (
@@ -22,9 +23,13 @@ function App() {
 <Routes>
 <Route path='/' element={<HomePage/>}/>
 <Route path='/offers' element={<Offers/>}/>
+<Route path='/category/:categoryName' element={<Category/>}/>
 <Route path='/signin' element={<Signin/>}/>
 <Route path='/signup' element={<Signup/>}/>
+<Route path='/forgot-password' element={<ForgotPassword/>}/>
+<Route path='/profile' element={<Privaterout/>}>
 <Route path='/profile' element={<Proflie/>}/>
+</Route>
 <Route path='/offers' element={<Offers/>}/>
 </Routes>
 </Router>

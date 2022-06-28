@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {  toast } from 'react-toastify';
 import Layout from "../components/layout/Layout";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
-import { async } from '@firebase/util';
+import OAuth from '../components/layout/OAuth';
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -66,17 +66,21 @@ const Signin = () => {
               className="form-control"
               id="password"
             />
-            <span onClick={() => setShowPassword(!showPassword)} style={{cursor:'pointer'}} >
+            <span onClick={() => setShowPassword(!showPassword)} style={{cursor:'pointer'}} className='m-2' >
               {showPassword ? <BsFillEyeSlashFill /> :  <BsFillEyeFill />}
             </span>
+            <Link to='/forgot-password' style={{cursor:'pointer'}}>forgot Password</Link>
           </div>
 
           <button type="submit" className="btn btn-primary">
             Sign In
+            
           </button>
+          <OAuth/>
           <div className='mt-2'>
             <span>New User</span>
             <Link to="/signup" className='m-4'>Signup </Link>
+            
           </div>
         </form>
       </div>
