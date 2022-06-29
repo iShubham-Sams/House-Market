@@ -30,3 +30,9 @@
   background-color: black;
 }
 /* image container for category close */
+
+.catagory-link a{
+  text-decoration: none;
+  color: black;
+  line-height: normal;
+}

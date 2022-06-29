@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import { getAuth, updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 import { FaEdit } from "react-icons/fa";
 import { MdDoneAll } from "react-icons/md";
+import {BsArrowRightSquareFill} from 'react-icons/bs'
 import { doc,setDoc,serverTimestamp, updateDoc } from "firebase/firestore";
 
 const Proflie = () => {
@@ -113,6 +114,11 @@ const onChange=(e)=>{
           </form>
         </div>
       </div>
+      <div className="container mt-4 w-50 d-flex justify-content-between">
+          <Link to='/create-listing'>
+          <BsArrowRightSquareFill color="primery"/> Sell or Rent Your Home
+          </Link>
+          </div>
     </Layout>
   );
 };

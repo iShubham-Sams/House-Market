@@ -1,12 +1,82 @@
-import React from 'react'
-import Layout from '../components/layout/Layout'
+import React, { useEffect, useState } from "react";
+import Layout from "../components/layout/Layout";
+import { useParams } from "react-router-dom";
+import { db } from "../firebase.config";
+import { toast } from "react-toastify";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limil,
+  startAfter,
+  limit,
+} from "firebase/firestore";
+import Spinner from "../components/layout/Spinner";
+import Listingitem from "../components/Listingitem";
 
 const Offers = () => {
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
+
+  // fetch listing
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        // refrence
+        const listingsRef = collection(db, "listings");
+        // query
+        const q = query(
+          listingsRef,
+          where("offer", "==", true),
+          orderBy("timestamp", "desc"),
+          limit(10)
+        );
+        // execute query
+        const querySnap = await getDocs(q);
+        const listings = [];
+        querySnap.forEach((doc) => {
+          return listings.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+        setListing(listings);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        toast.error("unable to fetch data");
+      }
+    };
+    // func call
+    fetchListing();
+  }, [params]);
+
   return (
-    <Layout>
-    <div>Offers</div>
-    </Layout>
-  )
-}
+    <div className="mt-3 display-fluid">
+      <Layout>
+        <h1>Best Offers</h1>
+        {loading ? (
+          <Spinner />
+        ) : listing && listing.length > 0 ? (
+          <>
+            <div>
+                {listing.map((list)=>{
+                    return <div key={list.id}>
+                    <Listingitem listing={list.data} id={list.id} key={list.id}/>
+                    </div>
+                })}
+            </div>
+          </>
+        ) : (
+         <p>There Are No Current Offer</p>
+        )}
+      </Layout>
+    </div>
+  );
+};
 
 export default Offers

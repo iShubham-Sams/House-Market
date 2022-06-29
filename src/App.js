@@ -14,6 +14,7 @@ import {
 import Privaterout from './components/layout/Privaterout';
 import ForgotPassword from './pages/ForgotPassword';
 import Category from './pages/Category';
+import CreateListing from './pages/CreateListing';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
 <Route path='/signin' element={<Signin/>}/>
 <Route path='/signup' element={<Signup/>}/>
 <Route path='/forgot-password' element={<ForgotPassword/>}/>
+<Route path='/create-listing' element={<CreateListing/>}/>
 <Route path='/profile' element={<Privaterout/>}>
 <Route path='/profile' element={<Proflie/>}/>
 </Route>
