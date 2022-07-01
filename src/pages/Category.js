@@ -18,25 +18,27 @@ import Listingitem from "../components/Listingitem";
 
 const Category = () => {
   const [listing, setListing] = useState(null);
+  const [lastFetchListing,setLastFetchListing]=useState(null)
   const [loading, setLoading] = useState(true);
   const params = useParams();
 
   // fetch listing
-
-  useEffect(() => {
+ useEffect(() => {
     const fetchListing = async () => {
       try {
-        // refrence
+        //refrence
         const listingsRef = collection(db, "listings");
-        // query
+        //query
         const q = query(
           listingsRef,
           where("type", "==", params.categoryName),
           orderBy("timestamp", "desc"),
-          limit(10)
+          limit(1)
         );
-        // execute query
+        //execute query
         const querySnap = await getDocs(q);
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetchListing(lastVisible);
         const listings = [];
         querySnap.forEach((doc) => {
           return listings.push({
@@ -48,16 +50,50 @@ const Category = () => {
         setLoading(false);
       } catch (error) {
         console.log(error);
-        toast.error("unable to fetch data");
+        toast.error("Unble to fetch data");
       }
     };
-    // func call
+    //func call
     fetchListing();
   }, [params.categoryName]);
 
+ //loadmore pagination func
+ const fetchLoadMoreListing = async () => {
+  try {
+    //refrence
+    const listingsRef = collection(db, "listings");
+    //query
+    const q = query(
+      listingsRef,
+      where("type", "==", params.categoryName),
+      orderBy("timestamp", "desc"),
+      startAfter(lastFetchListing),
+      limit(10)
+    );
+    //execute query
+    const querySnap = await getDocs(q);
+    const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+    setLastFetchListing(lastVisible);
+    const listings = [];
+    querySnap.forEach((doc) => {
+      return listings.push({
+        id: doc.id,
+        data: doc.data(),
+      });
+    });
+    setListing((prevState) => [...prevState, ...listings]);
+    setLoading(false);
+  } catch (error) {
+    console.log(error);
+    toast.error("Unble to fetch data");
+  }
+};
+
+  
+
   return (
-    <div className="mt-3 display-fluid">
       <Layout>
+    <div className="mt-3 display-fluid">
         {params.categoryName === "rent" ? "Places For Rent" : "Places For Sale"}
         {loading ? (
           <Spinner />
@@ -74,8 +110,13 @@ const Category = () => {
         ) : (
           <p>no data {params.categoryName}</p>
         )}
-      </Layout>
     </div>
+    {lastFetchListing && (
+      <button className="btn btn-primaty" onClick={fetchLoadMoreListing}>
+      Load More
+      </button>
+    )}
+      </Layout>
   );
 };
 
