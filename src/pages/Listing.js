@@ -5,13 +5,12 @@ import { db } from "../firebase.config";
 import { getAuth } from "firebase/auth";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import Spinner from "../components/layout/Spinner";
-import SwipeCore, { EffectCoverflow, Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.min.css";
-import "swiper/swiper.min.css";
 
-//config
-SwipeCore.use([EffectCoverflow, Pagination]);
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import 'swiper/css/bundle'
+
+
 
 const Listing = () => {
   const [listing, setListing] = useState("");
@@ -42,7 +41,35 @@ const Listing = () => {
       <div className="container d-flex align-items-center justify-content-center mt-4">
         <div className="card" style={{ width: "600px" }}>
           <div className="card-header">
-            <img src={listing.imgUrls} height={400} width={560} style={{objectFit: "cover"}}  alt="" />
+            {listing.imgUrls === undefined ? (
+              <Spinner />
+            ) : (
+              <Swiper
+      // install Swiper modules
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={1}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,}}
+                  >
+                {listing.imgUrls.map((url, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={listing.imgUrls[index]}
+                      height={400}
+                      width={600}
+                      alt={listing.name}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
           </div>
           <div className="card-body">
             <h3>{listing.name}</h3>
