@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdBedroomChild } from "react-icons/md";
 import {GiBathtub} from 'react-icons/gi'
 
-const Listingitem = ({ listing, id,onDelete }) => {
+const Listingitem = ({ listing, id,onDelete,onEdit }) => {
   return (
     <>
       <div className="d-flex align-items-center justify-content-center">
@@ -45,6 +45,10 @@ const Listingitem = ({ listing, id,onDelete }) => {
             </Link>
             {onDelete && (<button className="btn btn-danger" onClick={()=>onDelete(listing.id)}>
                     Delete item
+                    </button>) }
+
+                    {onEdit && (<button className="btn btn-info mt-4" onClick={()=>onEdit(listing.id)}>
+                    Edit item
                     </button>) }
         </div>
       </div>

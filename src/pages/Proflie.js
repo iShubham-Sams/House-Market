@@ -83,7 +83,11 @@ const onDelete = async (listingid)=>{
     setListings(updatedListings)
     toast.success("Listing delete Success Fully")
   }
+}
 
+// eddit handler
+const onEdit=(listingId)=>{
+  navigate(`/editlisting/${listingId}`)
 }
   return (
     <Layout>
@@ -161,7 +165,9 @@ const onDelete = async (listingid)=>{
                 </h6>
                 {listings.map(listing=>(
                   <Listingitem key={listing.id} listing={listing.data} id={listing.id}
-                  onDelete={()=>onDelete(listing.id)} />
+                  onDelete={()=>onDelete(listing.id)} 
+                    onEdit={()=>onEdit(listing.id)}
+                  />
                 ))}
               </>
             )}
