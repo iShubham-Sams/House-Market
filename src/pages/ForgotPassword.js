@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
-
+import '../Style/forgotpassword.css'
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
@@ -22,8 +22,12 @@ try {
 }
   }
   return (
-    <Layout>
-      <div className="container mt-4">
+    <Layout title="forgot password page">
+      <div className="row forgot-password-container">
+        <div className="col-md-7 forgot-password-col1">
+          <img src={`https://www.groovypost.com/wp-content/uploads/2017/11/forgot-password-feature.jpg`} alt="forgot-img" />
+        </div>
+        <div className="col-md-5 forgot-password-col2">
         <h1>Reset Your Password</h1>
         <form onSubmit={onSubmitHandler}>
           <div className="mb-3">
@@ -38,14 +42,24 @@ try {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
             />
-          </div>
-          <div className="d-flex justify-content-between">
-          <button type="submit" className="btn btn-primary">
-            Reset
-          </button>
-          <Link to='/signin'>Sign In</Link>
-          </div>
-        </form>
+          <div id="emailHelp" className="form-text">
+                reset email will sent to this email
+              </div>
+            </div>
+            <div className="d-flex justify-content-between btn-goup">
+              <button type="submit" className="btn ">
+                Reset Password
+              </button>
+              <button
+                type="button"
+                className="btn signin"
+                onClick={() => navigate("/signin")}
+              >
+                Sing In
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </Layout>
   );

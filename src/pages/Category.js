@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
+
 import {
   collection,
   getDocs,
@@ -14,7 +15,7 @@ import {
   limit,
 } from "firebase/firestore";
 import Spinner from "../components/layout/Spinner";
-import Listingitem from "../components/Listingitem";
+import Listingitem from '../Listingitem'
 
 const Category = () => {
   const [listing, setListing] = useState(null);

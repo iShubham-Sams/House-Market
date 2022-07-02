@@ -10,11 +10,10 @@ import { db } from "../firebase.config";
 import {
   getStorage,
   ref,
-  uploadBytesResumble,
   getDownloadURL,
   uploadBytesResumable,
 } from "firebase/storage";
-import { addDoc, collection, serverTimestamp,doc,getDoc,updateDoc } from "firebase/firestore";
+import {  serverTimestamp,doc,getDoc,updateDoc } from "firebase/firestore";
 
 
 
@@ -44,8 +43,6 @@ const EditListing = () => {
       name,
       bedrooms,
       bathrooms,
-      parking,
-      furnished,
       address,
       offer,
       regularPrice,
@@ -143,7 +140,6 @@ const EditListing = () => {
         return;
       }
       let geoLocation = {};
-      let location;
       if (geoLoactionEnable) {
         const response = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCcdggkOmLBbc0uo93LdD7VCv2npMpUy8Y`
@@ -167,7 +163,7 @@ const EditListing = () => {
             (snapshot) => {
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            //   console.log("uplloas is" + progress + "% done");
+              //  <Spinner/> &nbsp; `${progress} %`
               switch (snapshot.state) {
                 case "paused":
                   // console.log("upload is paused");

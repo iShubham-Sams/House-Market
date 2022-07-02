@@ -14,7 +14,8 @@ import {
   limit,
 } from "firebase/firestore";
 import Spinner from "../components/layout/Spinner";
-import Listingitem from "../components/Listingitem";
+import Listingitem from "../Listingitem";
+import '../Style/offers.css'
 
 const Offers = () => {
   const [listing, setListing] = useState(null);
@@ -93,9 +94,16 @@ const Offers = () => {
 
 
   return (
-    <div className="mt-3 display-fluid">
-      <Layout>
-        <h1>Best Offers</h1>
+    <Layout title="best offer on house">
+    <div className="offers pt-3 container-fluid">
+      <h1>
+          {" "}
+          <img
+            src="/assets/offer.png"
+            alt="offers"
+            className="offer-img"
+          />{" "}
+        Best Offers</h1>
         {loading ? (
           <Spinner />
         ) : listing && listing.length > 0 ? (
@@ -111,15 +119,17 @@ const Offers = () => {
         ) : (
          <p>There Are No Current Offer</p>
         )}
-
+<div className="d-flex align-item-center justify-content-center pb-4 mt-4">
         {lastFetchListing && (
-      <button className="btn btn-primaty" onClick={fetchLoadMoreListing}>
+      <button className="load-btn" onClick={fetchLoadMoreListing}>
       Load More
       </button>
     )}
 
-      </Layout>
+</div>
+
     </div>
+      </Layout>
   );
 };
 

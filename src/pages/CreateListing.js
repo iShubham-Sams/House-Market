@@ -153,7 +153,7 @@ const CreateListing = () => {
       toast.error("Images not uploaded");
       return;
     });
-    console.log(imgUrls);
+    // console.log(imgUrls);
 
     //save form data
     const formDataCopy = {

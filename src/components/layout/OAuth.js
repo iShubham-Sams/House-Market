@@ -32,12 +32,21 @@ const OAuth = () => {
 
     }
   return (
-    <div className='mt-2'>
-    <h6 >sign {location.pathname === '/signup'?'up':'in'} with &nbsp;
-    <button  onClick={onGoogleAuthHandler}>
-        <FcGoogle/>
+    <div >
+    <h3 className='mt-4 text-center' >sign {location.pathname === '/signup'?'up':'in'} with &nbsp;
+    <button  onClick={onGoogleAuthHandler}
+    style={{
+        outline:'none',
+        backgroundColor:'transparent',
+        border:'none',
+        borderBottom:'1px solid black'
+    }}>
+    <span>
+
+        <FcGoogle/>oogle
+    </span>
     </button>
-    </h6>
+    </h3>
     </div>
   )
 }
